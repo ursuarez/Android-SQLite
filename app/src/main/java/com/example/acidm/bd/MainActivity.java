@@ -119,8 +119,24 @@ public class MainActivity extends AppCompatActivity {
                 SQLiteDatabase db = dbHandler.getWritableDatabase();
 
                 Cursor resultados = dbHandler.BuscarporDato(edtDato.getText().toString());
+                List<BdModel> modelo = new ArrayList<BdModel>();
+                BdModel elemento;
+                String tempHorario;
+                int cuantos = resultados.getCount();
+                ArrayAdapter<String> adaptador;
+                adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1);
+                adaptador.clear();
+                for (int c = 0; c < cuantos ; c++){
 
-                refresh(dbHandler);
+                    elemento = new BdModel();
+                    elemento.setDato(resultados.getString(1));
+
+
+                    adaptador.add(resultados.getString(1));
+                    resultados.moveToNext();
+
+                }
+                lista.setAdapter(adaptador);
             }
         });
 
@@ -184,8 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
         lista.setAdapter(adaptador);
-
-
 
     }
 }
